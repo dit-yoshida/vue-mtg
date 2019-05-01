@@ -1,4 +1,4 @@
-# mtg
+# MTG (Markdown Table Generator)
 
 ## Project setup
 ```
