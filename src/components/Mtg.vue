@@ -16,7 +16,7 @@
         <tr>
           <th></th>
           <th v-for="(col, index) in tableHeadData" v-bind:key="index">
-            <button>Del Col</button>
+            <button v-on:click="removeColumn(index)">Remove Column</button>
           </th>
           <th></th>
         </tr>
@@ -37,7 +37,7 @@
             <input v-model="tableHeadData[index]" placeholder="Input text" />
           </th>
           <th>
-            <button>Del Row</button>
+            <button v-on:click="removeRow(0)">Remove Row</button>
           </th>
         </tr>
       </thead>
@@ -54,19 +54,19 @@
             <input v-model="row[colIndex]" placeholder="Input text" />
           </th>
           <th>
-            <button>Del Row</button>
+            <button v-on:click="removeRow(index + 1)">Remove Row</button>
           </th>
         </tr>
       </tbody>
     </table>
     <!-- Markdown 形式のデータ出力 -->
-    <div class="mdTextbox">
-      <textarea v-model="formattedTableDatas" cols="100" rows="10">
+    <div class="mdResult">
+      <textarea v-model="formattedTableDatas" cols="100" rows="10" class="mdResultTextbox">
       </textarea>
     </div>
     <!-- 出力ボタン -->
     <div class="exportButtons">
-      <button>Copy to Clipboard</button>
+      <button v-on:click="copyToClipboard()>Copy to Clipboard</button>
     </div>
   </div>
 </template>
@@ -83,21 +83,36 @@ export default {
   },
   methods: {
     addRow: function() {
-      this.tableDatas = [...this.tableDatas, [...this.tableDatas[0].map(_ => "")]]
+      const newRow = this.tableDatas.length > 0 ? [...this.tableDatas[0].map(_ => "")] : [""]
+      this.tableDatas = [...this.tableDatas, newRow]
     },
     addColumn: function() {
-      this.tableDatas = this.tableDatas.map(row => [...row, ""])
+      if (this.tableDatas.length > 0) {
+        this.tableDatas = this.tableDatas.map(row => [...row, ""])
+      } else {
+        this.tableDatas = [[""]]
+      }
     },
     reset: function() {
       this.tableDatas = [
         [ "", "" ],
         [ "", "" ]
       ]
+    },
+    removeRow: function(rowIndex) {
+      this.tableDatas = this.tableDatas.filter((_, index) => index !== rowIndex)
+    },
+    removeColumn: function(columnIndex) {
+      const newTableDatas = this.tableDatas.map((row) => row.filter((_, index) => index !== columnIndex))
+      // 列がなくなった場合は空配列にする
+      this.tableDatas = newTableDatas[0].length > 0 ? newTableDatas : []
     }
   },
   computed: {
     // ヘッド部に表示するデータ
     tableHeadData() {
+      // 空の場合は空配列で返す
+      if (this.tableDatas.length === 0) return []
       return this.tableDatas[0]
     },
     // ボディ部に表示するデータ
