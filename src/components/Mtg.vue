@@ -11,75 +11,79 @@
       <button v-on:click="reset">Reset</button>
     </div>
     <!-- テーブルのヘッド部 -->
-    <table v-if="tableHeadData.length > 0" class="tableHeader">
-      <thead>
-        <tr>
-          <th></th>
-          <th v-for="(col, index) in tableHeadData" v-bind:key="index">
-            <button v-on:click="removeColumn(index)">Remove Column</button>
-          </th>
-          <th></th>
-        </tr>
-        <tr>
-          <th></th>
-          <th v-for="(col, index) in tableHeadData" v-bind:key="index">
-            <button
-              :disabled="index === 0"
-              v-on:click="moveColumnToLeft(index)"
-            >
-              ←
-            </button>
-            <button
-              :disabled="index === tableHeadData.length - 1"
-              v-on:click="moveColumnToRight(index)"
-            >
-              →
-            </button>
-          </th>
-          <th></th>
-        </tr>
-        <tr>
-          <th>
-            <button disabled>
-              ↑
-            </button>
-            <button v-on:click="moveRowToDown(0)">
-              ↓
-            </button>
-          </th>
-          <th v-for="(col, index) in tableHeadData" v-bind:key="index">
-            <input v-model="tableHeadData[index]" placeholder="Input text" />
-          </th>
-          <th>
-            <button v-on:click="removeRow(0)">Remove Row</button>
-          </th>
-        </tr>
-      </thead>
-    </table>
+    <div class="tableHeader">
+      <table v-if="tableHeadData.length > 0">
+        <thead>
+          <tr>
+            <th></th>
+            <th v-for="(col, index) in tableHeadData" v-bind:key="index">
+              <button v-on:click="removeColumn(index)">Remove Column</button>
+            </th>
+            <th></th>
+          </tr>
+          <tr>
+            <th></th>
+            <th v-for="(col, index) in tableHeadData" v-bind:key="index">
+              <button
+                :disabled="index === 0"
+                v-on:click="moveColumnToLeft(index)"
+              >
+                ←
+              </button>
+              <button
+                :disabled="index === tableHeadData.length - 1"
+                v-on:click="moveColumnToRight(index)"
+              >
+                →
+              </button>
+            </th>
+            <th></th>
+          </tr>
+          <tr>
+            <th>
+              <button disabled>
+                ↑
+              </button>
+              <button v-on:click="moveRowToDown(0)">
+                ↓
+              </button>
+            </th>
+            <th v-for="(col, index) in tableHeadData" v-bind:key="index">
+              <input v-model="tableHeadData[index]" placeholder="Input text" />
+            </th>
+            <th>
+              <button v-on:click="removeRow(0)">Remove Row</button>
+            </th>
+          </tr>
+        </thead>
+      </table>
+    </div>
     <!-- テーブルのボディ部 -->
-    <table v-if="tableBodyDatas.length > 0" class="tableBody">
-      <tbody>
-        <tr v-for="(row, index) in tableBodyDatas" v-bind:key="index">
-          <th>
-            <button v-on:click="moveRowToUp(index + 1)">
-              ↑
-            </button>
-            <button
-              :disabled="index===tableBodyDatas.length - 1"
-              v-on:click="moveRowToDown(index + 1)"
-            >
-              ↓
-            </button>
-          </th>
-          <th v-bind:value="row" v-for="(col, colIndex) in row" v-bind:key="colIndex">
-            <input v-model="row[colIndex]" placeholder="Input text" />
-          </th>
-          <th>
-            <button v-on:click="removeRow(index + 1)">Remove Row</button>
-          </th>
-        </tr>
-      </tbody>
-    </table>
+    <div class="tableBody">
+      <table v-if="tableBodyDatas.length > 0">
+        <tbody>
+          <tr v-for="(row, index) in tableBodyDatas" v-bind:key="index">
+            <th>
+              <button v-on:click="moveRowToUp(index + 1)">
+                ↑
+              </button>
+              <button
+                :disabled="index===tableBodyDatas.length - 1"
+                v-on:click="moveRowToDown(index + 1)"
+              >
+                ↓
+              </button>
+            </th>
+            <th v-bind:value="row" v-for="(col, colIndex) in row" v-bind:key="colIndex">
+              <input v-model="row[colIndex]" placeholder="Input text" />
+            </th>
+            <th>
+              <button v-on:click="removeRow(index + 1)">Remove Row</button>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <!-- Markdown 形式のデータ出力 -->
     <div class="mdResult">
       <textarea v-model="formattedTableDatas" cols="100" rows="10" class="mdResultTextbox">
@@ -193,4 +197,9 @@ export default {
 </script>
 
 <style scoped>
+.tableHeader,
+.tableBody {
+  display: flex;
+  justify-content: center;
+}
 </style>
