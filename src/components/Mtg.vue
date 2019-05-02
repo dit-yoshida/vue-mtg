@@ -66,11 +66,7 @@
     </div>
     <!-- 出力ボタン -->
     <div class="exportButtons">
-      <button
-        v-clipboard:copy="formattedTableDatas"
-        v-clipboard:success="onSuccessCopyToClipboard"
-        v-clipboard:error="onFailedCopyToClipboard"
-      >
+      <button v-on:click="copyToClipboard">
         Copy to Clipboard
       </button>
     </div>
@@ -113,11 +109,8 @@ export default {
       // 列がなくなった場合は空配列にする
       this.tableDatas = newTableDatas[0].length > 0 ? newTableDatas : []
     },
-    onSuccessCopyToClipboard: function() {
-      // クリップボードコピー成功時
-    },
-    onFailedCopyToClipboard: function() {
-      // クリップボードコピー失敗時
+    copyToClipboard: function() {
+      this.$copyText(this.formattedTableDatas).then(() => {}, () => {})
     }
   },
   computed: {
