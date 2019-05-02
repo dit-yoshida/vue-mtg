@@ -66,7 +66,7 @@
     </div>
     <!-- 出力ボタン -->
     <div class="exportButtons">
-      <button v-on:click="copyToClipboard()>Copy to Clipboard</button>
+      <button>Copy to Clipboard</button>
     </div>
   </div>
 </template>
