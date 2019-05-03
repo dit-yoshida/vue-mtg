@@ -114,7 +114,7 @@ export default {
   },
   methods: {
     addRow: function() {
-      const newRow = this.tableDatas.length > 0 ? [...this.tableDatas[0].map(_ => "")] : [""]
+      const newRow = this.tableDatas.length > 0 ? [...this.tableDatas[0].map(() => "")] : [""]
       this.tableDatas = [...this.tableDatas, newRow]
     },
     addColumn: function() {
@@ -192,7 +192,7 @@ export default {
         // 2行目以降はデータ部のみ
         if (index > 0) return colText
         // 1行目はヘッドなのでセパレータも返す
-        const separator = `| ${row.map(_ => "---").join(" | ")} |`
+        const separator = `| ${row.map(() => "---").join(" | ")} |`
         return `${colText}\n${separator}`
       }).join("\n")
     }
