@@ -1,0 +1,31 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: node:8.9.0
+    working_directory: ~/repo
+    steps:
+      - checkout # プロジェクトに追加したGitHubリポジトリをworking_directoryにcloneしてcheckout
+      # キャッシュがある場合はキャッシュから依存関係を復元
+      - restore_cache:
+          # 復元するキャッシュのkey
+          keys:
+            - v1-dependencies-{{ checksum "package-lock.json" }}
+            - v1-dependencies-
+      # 依存関係のインストール
+      - run:
+          name: Install Dependencies
+          command: npm install
+      # ビルド
+      - run:
+          name: Build
+          command: npm run build
+      # ビルドの確認
+      - run:
+          name: Check dist
+          command: ls -la dist
+      # キャッシュの保存
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package-lock.json" }}
