@@ -95,6 +95,10 @@
         Copy to Clipboard
       </button>
     </div>
+    <!-- 広告枠 -->
+    <div class="adArea">
+      <span>広告ここに置く</span>
+    </div>
   </div>
 </template>
 
@@ -201,5 +205,16 @@ export default {
 .tableBody {
   display: flex;
   justify-content: center;
+}
+.adArea {
+  margin-top: 2rem;
+}
+.adArea span {
+  display: inline-block;
+  background-color: #ddd;
+  border: #000 dashed 1px;
+  width: 60%;
+  line-height: 3.8;
+  height: 60px;
 }
 </style>
