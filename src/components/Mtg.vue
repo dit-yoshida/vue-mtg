@@ -47,7 +47,7 @@
               <button disabled>
                 ↑
               </button>
-              <button v-on:click="moveRowToDown(0)">
+              <button disabled>
                 ↓
               </button>
             </th>
@@ -68,7 +68,10 @@
           <tr v-for="(row, index) in tableBodyDatas" v-bind:key="index">
             <th class="rowNum">{{ index + 2 }}</th>
             <th>
-              <button v-on:click="moveRowToUp(index + 1)">
+              <button
+                :disabled="index===0"
+                v-on:click="moveRowToUp(index + 1)"
+              >
                 ↑
               </button>
               <button
