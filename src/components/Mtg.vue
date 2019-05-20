@@ -16,12 +16,14 @@
         <thead>
           <tr>
             <th></th>
+            <th></th>
             <th v-for="(col, index) in tableHeadData" v-bind:key="index">
               <button v-on:click="removeColumn(index)">Remove Column</button>
             </th>
             <th></th>
           </tr>
           <tr>
+            <th></th>
             <th></th>
             <th v-for="(col, index) in tableHeadData" v-bind:key="index">
               <button
@@ -40,6 +42,7 @@
             <th></th>
           </tr>
           <tr>
+            <th class="rowNum">1</th>
             <th>
               <button disabled>
                 ↑
@@ -63,6 +66,7 @@
       <table v-if="tableBodyDatas.length > 0">
         <tbody>
           <tr v-for="(row, index) in tableBodyDatas" v-bind:key="index">
+            <th class="rowNum">{{ index + 2 }}</th>
             <th>
               <button v-on:click="moveRowToUp(index + 1)">
                 ↑
@@ -205,6 +209,9 @@ export default {
 .tableBody {
   display: flex;
   justify-content: center;
+}
+.rowNum {
+  color: blue;
 }
 .adArea {
   margin-top: 2rem;
